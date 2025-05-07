@@ -1,4 +1,4 @@
-// File: /home/ubuntu/BioEnergy/src/app/instituicoes/page.tsx
+// File: C:\Users\txgns\Documents\BioEnergy\src\app\instituicoes\page.tsx
 import * as entry from '../../../../src/app/instituicoes/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

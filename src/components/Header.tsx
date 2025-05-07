@@ -11,6 +11,7 @@ const Header = () => {
           <ul className="flex space-x-6">
             <li><Link href="/" className="hover:text-primary-lighter transition-colors">Home</Link></li>
             <li><Link href="/#como-funciona" className="hover:text-primary-lighter transition-colors">Como funciona</Link></li>
+            <li><Link href="/graficos-bioenergia" className="hover:text-primary-lighter transition-colors">Gráficos</Link></li>
             <li><Link href="/doadores" className="hover:text-primary-lighter transition-colors">Doadores</Link></li>
             <li><Link href="/instituicoes" className="hover:text-primary-lighter transition-colors">Instituições</Link></li>
             <li><Link href="/#contato" className="hover:text-primary-lighter transition-colors">Contato</Link></li>
