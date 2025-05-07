@@ -1,0 +1,208 @@
+"use client";
+
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+
+// Mock de dados de produtores e ONGs
+const mockProdutoresData = [
+  {
+    id: 'prod1',
+    nome: 'Fazenda Sol Nascente',
+    email: 'contato@solnascente.com',
+    telefone: '(11) 98765-4321',
+    endereco: 'Rua das Palmeiras, 123, Campo Verde, SP',
+    tipoResiduo: 'Esterco bovino, restos de milho',
+    quantidadeEstimada: '100kg por semana',
+    frequenciaColeta: 'Semanalmente às segundas',
+    status: 'Aprovado',
+  },
+  {
+    id: 'prod2',
+    nome: 'Sítio Boa Esperança',
+    email: 'sitio@boaesperanca.org',
+    telefone: '(21) 91234-5678',
+    endereco: 'Estrada da Colina, S/N, Vale Feliz, RJ',
+    tipoResiduo: 'Restos de frutas e vegetais',
+    quantidadeEstimada: '50kg por semana',
+    frequenciaColeta: 'Quinzenalmente',
+    status: 'Pendente',
+  },
+];
+
+const mockOngsData = [
+  {
+    id: 'ong1',
+    nomeOrganizacao: 'ONG Vida Verde',
+    responsavel: 'Maria Silva',
+    email: 'maria.silva@vidaverde.org',
+    telefone: '(31) 99999-8888',
+    endereco: 'Av. Ambiental, 789, Belo Horizonte, MG',
+    tipoNecessidade: 'Composto orgânico para horta comunitária',
+    descricaoProjeto: 'Projeto de horta urbana para famílias de baixa renda.',
+    status: 'Aprovado',
+  },
+  {
+    id: 'ong2',
+    nomeOrganizacao: 'Instituto Bioconecta',
+    responsavel: 'João Pereira',
+    email: 'joao@bioconecta.com.br',
+    telefone: '(41) 98877-6655',
+    endereco: 'Rua da Sustentabilidade, 456, Curitiba, PR',
+    tipoNecessidade: 'Biomassa para produção de biogás',
+    descricaoProjeto: 'Desenvolvimento de biodigestor para geração de energia em comunidade rural.',
+    status: 'Pendente',
+  },
+];
+
+export default function AdminDashboardPage() {
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [produtores, setProdutores] = useState(mockProdutoresData);
+  const [ongs, setOngs] = useState(mockOngsData);
+
+  useEffect(() => {
+    const loggedIn = localStorage.getItem('isAdminLoggedIn');
+    if (loggedIn === 'true') {
+      setIsAdmin(true);
+    } else {
+      window.location.href = '/admin'; 
+    }
+  }, []);
+
+  const handleApprove = (type: 'produtor' | 'ong', id: string) => {
+    if (type === 'produtor') {
+      setProdutores(produtores.map(p => p.id === id ? { ...p, status: 'Aprovado' } : p));
+    } else {
+      setOngs(ongs.map(o => o.id === id ? { ...o, status: 'Aprovado' } : o));
+    }
+    alert(`${type === 'produtor' ? 'Produtor' : 'ONG'} aprovado(a) com sucesso! (Mock)`);
+  };
+
+  const handleReject = (type: 'produtor' | 'ong', id: string) => {
+    if (type === 'produtor') {
+      setProdutores(produtores.map(p => p.id === id ? { ...p, status: 'Rejeitado' } : p));
+    } else {
+      setOngs(ongs.map(o => o.id === id ? { ...o, status: 'Rejeitado' } : o));
+    }
+    alert(`${type === 'produtor' ? 'Produtor' : 'ONG'} rejeitado(a) com sucesso! (Mock)`);
+  };
+  
+  const handleLogout = () => {
+    localStorage.removeItem('isAdminLoggedIn');
+    setIsAdmin(false);
+    window.location.href = '/admin';
+  };
+
+  if (!isAdmin) {
+    return (
+        <div className="container mx-auto py-12 px-4 text-center min-h-[calc(100vh-200px)] flex flex-col justify-center items-center">
+            <p className="text-xl text-red-600">Acesso negado. Por favor, faça login como administrador.</p>
+            <Link href="/admin" className="text-primary hover:text-primary-dark mt-4 inline-block text-lg">
+                Ir para a página de Login
+            </Link>
+        </div>
+    );
+  }
+
+  return (
+    <div className="container mx-auto py-12 px-4">
+      <div className="flex justify-between items-center mb-10">
+        <h1 className="text-4xl font-bold text-primary-dark">Painel Administrativo</h1>
+        <button 
+            onClick={handleLogout} 
+            className="bg-red-500 hover:bg-red-600 text-neutral-lightest font-bold py-2 px-4 rounded-lg transition-colors"
+        >
+            Sair
+        </button>
+      </div>
+
+      <section className="mb-12">
+        <h2 className="text-3xl font-semibold text-secondary-dark mb-6">Cadastros de Produtores</h2>
+        <div className="bg-neutral-lightest p-6 rounded-xl shadow-xl overflow-x-auto">
+          {produtores.length > 0 ? (
+            <table className="min-w-full divide-y divide-neutral-light">
+              <thead className="bg-neutral-lighter">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-dark uppercase tracking-wider">Nome</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-dark uppercase tracking-wider">Email</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-dark uppercase tracking-wider">Tipo de Resíduo</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-dark uppercase tracking-wider">Status</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-dark uppercase tracking-wider">Ações</th>
+                </tr>
+              </thead>
+              <tbody className="bg-neutral-lightest divide-y divide-neutral-light">
+                {produtores.map((produtor) => (
+                  <tr key={produtor.id}>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-neutral-darkest">{produtor.nome}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-dark">{produtor.email}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-dark">{produtor.tipoResiduo}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm">
+                      <span className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${produtor.status === 'Aprovado' ? 'bg-green-100 text-green-800' : produtor.status === 'Pendente' ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800'}`}>
+                        {produtor.status}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                      {produtor.status === 'Pendente' && (
+                        <>
+                          <button onClick={() => handleApprove('produtor', produtor.id)} className="text-primary hover:text-primary-dark mr-4 font-semibold">Aprovar</button>
+                          <button onClick={() => handleReject('produtor', produtor.id)} className="text-red-600 hover:text-red-800 font-semibold">Rejeitar</button>
+                        </>
+                      )}
+                      {produtor.status !== 'Pendente' && <span className="text-neutral">N/A</span>}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <p className="text-neutral-dark">Nenhum produtor cadastrado no momento.</p>
+          )}
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-3xl font-semibold text-secondary-dark mb-6">Cadastros de ONGs/Instituições</h2>
+        <div className="bg-neutral-lightest p-6 rounded-xl shadow-xl overflow-x-auto">
+          {ongs.length > 0 ? (
+            <table className="min-w-full divide-y divide-neutral-light">
+              <thead className="bg-neutral-lighter">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-dark uppercase tracking-wider">Nome da Organização</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-dark uppercase tracking-wider">Responsável</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-dark uppercase tracking-wider">Email</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-dark uppercase tracking-wider">Status</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-dark uppercase tracking-wider">Ações</th>
+                </tr>
+              </thead>
+              <tbody className="bg-neutral-lightest divide-y divide-neutral-light">
+                {ongs.map((ong) => (
+                  <tr key={ong.id}>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-neutral-darkest">{ong.nomeOrganizacao}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-dark">{ong.responsavel}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-dark">{ong.email}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm">
+                      <span className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${ong.status === 'Aprovado' ? 'bg-green-100 text-green-800' : ong.status === 'Pendente' ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800'}`}>
+                        {ong.status}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                      {ong.status === 'Pendente' && (
+                        <>
+                          <button onClick={() => handleApprove('ong', ong.id)} className="text-primary hover:text-primary-dark mr-4 font-semibold">Aprovar</button>
+                          <button onClick={() => handleReject('ong', ong.id)} className="text-red-600 hover:text-red-800 font-semibold">Rejeitar</button>
+                        </>
+                      )}
+                       {ong.status !== 'Pendente' && <span className="text-neutral">N/A</span>}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <p className="text-neutral-dark">Nenhuma ONG/Instituição cadastrada no momento.</p>
+          )}
+        </div>
+      </section>
+    </div>
+  );
+}
+

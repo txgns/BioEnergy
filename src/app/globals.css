@@ -1,0 +1,137 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Cores Primárias (Verdes) */
+    --color-primary-dark: 86 43% 38%; /* Verde escuro para fundos de seção, ex: #4A6B4D */
+    --color-primary: 94 56% 51%; /* Verde principal, ex: #5C946E */
+    --color-primary-light: 100 70% 65%; /* Verde claro para botões/destaques, ex: #82D48F */
+    --color-primary-lighter: 100 70% 85%; /* Verde ainda mais claro para hover/accent */
+
+    /* Cores Secundárias (Roxos/Escuros) */
+    --color-secondary-dark: 270 25% 25%; /* Roxo escuro para fundos, ex: #3F304D */
+    --color-secondary: 270 20% 40%; /* Roxo médio */
+
+    /* Cores Neutras */
+    --color-neutral-lightest: 0 0% 100%; /* Branco */
+    --color-neutral-lighter: 0 0% 96%; /* Cinza muito claro para fundos de cards/seções claras, ex: #F5F5F5 */
+    --color-neutral-light: 0 0% 90%; /* Cinza claro */
+    --color-neutral: 0 0% 50%; /* Cinza médio para texto secundário */
+    --color-neutral-dark: 0 0% 20%; /* Cinza escuro para texto principal sobre fundos claros */
+    --color-neutral-darkest: 0 0% 10%; /* Preto/Cinza muito escuro */
+
+    /* Cores de Feedback (pode manter as padrão do Tailwind ou ajustar) */
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    /* Variáveis do Tailwind/Shadcn adaptadas */
+    --background: var(--color-neutral-lighter); /* Fundo principal da página */
+    --foreground: var(--color-neutral-dark);
+
+    --card: var(--color-neutral-lightest);
+    --card-foreground: var(--color-neutral-dark);
+
+    --popover: var(--color-neutral-lightest);
+    --popover-foreground: var(--color-neutral-dark);
+
+    --primary: var(--color-primary);
+    --primary-foreground: var(--color-neutral-lightest);
+
+    --secondary: var(--color-secondary);
+    --secondary-foreground: var(--color-neutral-lightest);
+
+    --muted: var(--color-neutral-light);
+    --muted-foreground: var(--color-neutral);
+
+    --accent: var(--color-primary-light);
+    --accent-foreground: var(--color-neutral-darkest);
+    
+    --border: var(--color-neutral-light);
+    --input: var(--color-neutral-light);
+    --ring: var(--color-primary);
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    /* Definir variáveis para modo escuro se necessário, seguindo a paleta */
+    --background: var(--color-neutral-darkest);
+    --foreground: var(--color-neutral-lighter);
+
+    --card: var(--color-neutral-dark);
+    --card-foreground: var(--color-neutral-lighter);
+
+    --popover: var(--color-neutral-dark);
+    --popover-foreground: var(--color-neutral-lighter);
+
+    --primary: var(--color-primary-light);
+    --primary-foreground: var(--color-neutral-darkest);
+
+    --secondary: var(--color-secondary-dark);
+    --secondary-foreground: var(--color-neutral-lighter);
+
+    --muted: var(--color-neutral-dark);
+    --muted-foreground: var(--color-neutral-light);
+
+    --accent: var(--color-primary);
+    --accent-foreground: var(--color-neutral-lightest);
+
+    --border: var(--color-neutral-dark);
+    --input: var(--color-neutral-dark);
+    --ring: var(--color-primary-light);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif; /* Sugestão de fonte limpa, verificar se precisa instalar ou se já vem com Next/Tailwind */
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold;
+  }
+}
+
+@layer utilities {
+  /* Adicionando classes utilitárias com base nas novas cores para facilitar o uso direto */
+  .bg-primary-dark { background-color: hsl(var(--color-primary-dark)); }
+  .text-primary-dark { color: hsl(var(--color-primary-dark)); }
+
+  .bg-primary { background-color: hsl(var(--color-primary)); }
+  .text-primary { color: hsl(var(--color-primary)); }
+
+  .bg-primary-light { background-color: hsl(var(--color-primary-light)); }
+  .text-primary-light { color: hsl(var(--color-primary-light)); }
+
+  .bg-primary-lighter { background-color: hsl(var(--color-primary-lighter)); }
+  .text-primary-lighter { color: hsl(var(--color-primary-lighter)); }
+
+  .bg-secondary-dark { background-color: hsl(var(--color-secondary-dark)); }
+  .text-secondary-dark { color: hsl(var(--color-secondary-dark)); }
+
+  .bg-secondary { background-color: hsl(var(--color-secondary)); }
+  .text-secondary { color: hsl(var(--color-secondary)); }
+  
+  .bg-neutral-lightest { background-color: hsl(var(--color-neutral-lightest)); } /* Adicionada classe que faltava */
+  .text-neutral-lightest { color: hsl(var(--color-neutral-lightest)); }
+  .text-neutral-darkest { color: hsl(var(--color-neutral-darkest)); }
+
+  /* Ajustes específicos para botões e cards para corresponder à imagem */
+  .btn-primary {
+    @apply bg-primary-light text-neutral-darkest font-bold py-3 px-6 rounded-lg transition-colors hover:bg-primary;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary-dark text-neutral-lightest font-bold py-3 px-6 rounded-lg transition-colors hover:bg-secondary;
+  }
+
+  .card-custom {
+    @apply bg-neutral-lightest p-6 rounded-lg shadow-lg;
+  }
+}
+
