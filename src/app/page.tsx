@@ -78,7 +78,7 @@ export default function HomePage() {
           <h2 className="text-4xl font-bold mb-12">Faça Parte da Mudança</h2>
           <div className="grid md:grid-cols-2 gap-10 max-w-4xl mx-auto">
             <div className="bg-neutral-lightest text-secondary-dark p-10 rounded-lg shadow-xl hover:shadow-2xl transition-shadow">
-              <h3 className="text-3xl font-semibold mb-6">Sou Pequeno Produtor</h3>
+              <h3 className="text-3xl font-semibold mb-6">Sou Produtor</h3>
               <p className="mb-8 text-lg">Tem resíduos orgânicos e quer dar um destino sustentável e lucrativo? Cadastre-se e ajude a gerar impacto positivo.</p>
               <Link href="/cadastro/produtor" className="btn-primary w-full text-lg">
                 Cadastrar como Produtor

@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer className="bg-secondary-dark text-neutral-lighter p-8 mt-12">
+    <footer className="text-neutral-lighter p-8 mt-12">
       <div className="container mx-auto text-center">
         <p>&copy; {new Date().getFullYear()} BioEnergy - Todos os direitos reservados</p>
         <div className="mt-2">

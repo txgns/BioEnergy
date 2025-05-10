@@ -52,7 +52,7 @@ export default function CadastroProdutorPage() {
 
   return (
     <div className="container mx-auto py-16 px-4">
-      <h1 className="text-4xl font-bold text-primary-dark mb-10 text-center">Cadastro de Pequeno Produtor</h1>
+      <h1 className="text-4xl font-bold text-primary-dark mb-10 text-center">Cadastro de Produtor</h1>
       <form onSubmit={handleSubmit} className="max-w-2xl mx-auto bg-neutral-lightest p-10 rounded-xl shadow-xl space-y-6">
         <div>
           <label htmlFor="nome" className="block text-neutral-dark font-semibold mb-2">Nome Completo / Nome da Propriedade</label>
