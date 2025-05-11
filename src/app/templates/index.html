@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Impacto e Exemplos</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
+      padding: 20px;
+    }
+    .grafico {
+      margin-bottom: 50px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+    h1, h2 {
+      color: #166534;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Impacto e Exemplos do Aproveitamento de Biomassa</h1>
+
+  <div class="grafico">
+    <h2>Geração de Biogás e Biofertilizante</h2>
+    {{ bar_graph | safe }}
+  </div>
+
+  <div class="grafico">
+    <h2>Evolução da Economia Gerada</h2>
+    {{ line_graph | safe }}
+  </div>
+</body>
+</html>

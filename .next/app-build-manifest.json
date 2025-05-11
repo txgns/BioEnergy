@@ -16,25 +16,15 @@
       "static/chunks/main-app.js",
       "static/chunks/app/impacto-e-exemplos/page.js"
     ],
-    "/doadores/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/doadores/page.js"
-    ],
-    "/instituicoes/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/instituicoes/page.js"
-    ],
-    "/cadastro/produtor/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/cadastro/produtor/page.js"
-    ],
     "/cadastro/ong/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/cadastro/ong/page.js"
+    ],
+    "/doadores/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/doadores/page.js"
     ]
   }
 }

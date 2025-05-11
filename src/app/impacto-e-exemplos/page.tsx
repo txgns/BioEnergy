@@ -6,7 +6,7 @@ import Script from 'next/script';
 const ImpactoEExemplosPage = () => {
 
   useEffect(() => {
-    // Mock data for graphs - in a real scenario, this would come from an API
+    // Mock de dados
     const barChartData = {
       data: [
         {
@@ -69,7 +69,7 @@ const ImpactoEExemplosPage = () => {
       Plotly.newPlot('grafico-barras', barChartData.data, barChartData.layout, { displayModeBar: false });
       Plotly.newPlot('grafico-linha', lineChartData.data, lineChartData.layout, { displayModeBar: false });
     } else {
-        // Retry if Plotly is not loaded yet, or handle error
+        
         const intervalId = setInterval(() => {
             if (typeof Plotly !== 'undefined') {
                 Plotly.newPlot('grafico-barras', barChartData.data, barChartData.layout, { displayModeBar: false });

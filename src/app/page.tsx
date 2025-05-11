@@ -1,15 +1,45 @@
 import Image from 'next/image';
 import Link from 'next/link'; // Import Link
 
+//colaboradores
+const colaboradores = [
+  {
+    id: 1,
+    nome: 'Caio Souza',
+    imagem: '/img/Caio.jpeg',
+  },
+  {
+    id: 2,
+    nome: 'Gabriella Iglesias',
+    imagem: '/img/Gabriella.jpg',
+  },
+  {
+    id: 3,
+    nome: 'Niani Palmonari ',
+    imagem: '/img/Niani.jpg',
+  },
+  {
+    id: 4,
+    nome: 'Lincon Amaro',
+    imagem: '/img/Lincon.jpg',
+  },
+  {
+    id: 5,
+    nome: 'Rafaella Andriotta',
+    imagem: '/img/Rafa.png',
+  },
+];
+
+
 export default function HomePage() {
   return (
     <>
-      {/* Seção Hero/Intro - Adaptada da imagem */}
+      {/* Seção Hero/Intro*/}
       <section className="bg-primary-dark text-neutral-lightest py-20 px-4 text-center">
         <div className="container mx-auto">
           <h2 className="text-5xl font-bold mb-6">Bem-vindo à BioEnergy</h2>
           <p className="text-xl mb-10 max-w-3xl mx-auto">Conectando produtores de biomassa e ONGs para um futuro mais sustentável, transformando resíduos em recursos valiosos.</p>
-          {/* Cards iniciais da imagem - Ajustados para design da imagem */}
+          {/* Cards iniciais da imagem*/}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             <div className="card-custom text-primary-dark hover:shadow-2xl transition-shadow">
               <h3 className="text-2xl font-semibold mb-3">Produtores de Biomassa</h3>
@@ -31,7 +61,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Seção Conheça a BioEnergy - Adaptada da imagem e HTML */}
+      {/* Seção Conheça a BioEnergy */}
       <section id="sobre" className="py-20 px-4 bg-neutral-lighter">
         <div className="container mx-auto max-w-4xl bg-neutral-lightest p-10 rounded-xl shadow-xl">
           <h2 className="text-4xl font-bold text-primary-dark mb-8 text-center">Conheça a BioEnergy</h2>
@@ -47,7 +77,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Seção Como Funciona (FAQ/Accordion da imagem) */}
+      {/* Seção Como Funciona*/}
       <section id="como-funciona" className="py-20 px-4 bg-primary-dark text-neutral-lightest">
         <div className="container mx-auto text-center">
           <h2 className="text-4xl font-bold mb-12">Como Funciona</h2>
@@ -72,7 +102,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Seção de Cadastro - Formulários em páginas dedicadas */}
+      {/* Seção de Cadastro*/}
       <section id="cadastro-home" className="py-20 px-4 bg-secondary-dark text-neutral-lightest">
         <div className="container mx-auto text-center">
           <h2 className="text-4xl font-bold mb-12">Faça Parte da Mudança</h2>
@@ -95,20 +125,30 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Seção Nossos Parceiros - Placeholder, design da imagem */}
-      <section id="parceiros" className="py-20 px-4 bg-neutral-lighter">
-        <div className="container mx-auto text-center">
-          <h2 className="text-4xl font-bold text-secondary-dark mb-12">Nossos Parceiros</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 items-center">
-            {[1, 2, 3, 4, 5].map((p) => (
-              <div key={p} className="bg-neutral-lightest p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow aspect-video flex flex-col justify-center items-center">
-                <Image src="/img/logo-parceiro-placeholder.png" alt={`Parceiro ${p}`} width={120} height={60} className="mx-auto h-16 object-contain mb-2" />
-                 <p className="text-secondary-dark mt-2 font-semibold">Nome do Parceiro {p}</p>
-              </div>
-            ))}
+  <section id="parceiros" className="py-20 px-4 bg-neutral-lighter">
+  <div className="container mx-auto text-center">
+    <h2 className="text-4xl font-bold text-secondary-dark mb-12">Colaboradores</h2>
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10">
+      {colaboradores.map((colaborador) => (
+        <div
+          key={colaborador.id}
+          className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col items-center"
+        >
+          <div className="w-28 h-28 mb-4 rounded-full overflow-hidden border-4 border-primary shadow-md">
+            <Image
+              src={colaborador.imagem}
+              alt={`Imagem de ${colaborador.nome}`}
+              width={112}
+              height={112}
+              className="object-cover w-full h-full"
+            />
           </div>
+          <p className="text-lg font-semibold text-secondary-dark">{colaborador.nome}</p>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
 
       {/* Seção Contato - Formulário */}
        <section id="contato" className="py-20 px-4 bg-primary-dark">
