@@ -41,17 +41,28 @@ const ImpactoEExemplosPage = () => {
 
     const lineChartData = {
       data: [
-        {
-          x: [0, 50, 100, 150, 200], // kg de resíduos doados
-          y: [0, 25, 50, 75, 100], // Economia gerada (R$)
-          type: 'scatter',
-          mode: 'lines+markers',
-          name: 'Economia (R$)',
-          line: {
-            color: 'hsl(var(--color-primary-light))',
-            width: 3
-          }
-        }
+         {
+                name: 'Biogás (m³)',
+                x: [50, 100, 150, 200, 250, 300, 350, 400, 450, 500],
+                y: [4, 8, 12, 16, 20, 24, 28, 32, 36, 40],
+                type: 'scatter',
+                mode: 'lines+markers'
+            },
+            {
+                name: 'Biofertilizante (kg)',
+                x: [50, 100, 150, 200, 250, 300, 350, 400, 450, 500],
+                y: [15, 25, 35, 50, 65, 75, 85, 100, 115, 125],
+                type: 'scatter',
+                mode: 'lines+markers'
+            },
+            {
+                name: 'Economia (R$)',
+                x: [50, 100, 150, 200, 250, 300, 350, 400, 450, 500],
+                y: [20, 39, 58, 78, 98, 118, 138, 158, 178, 195],
+                type: 'scatter',
+                mode: 'lines+markers'
+            }
+        
       ],
       layout: {
         title: 'Evolução da Economia com Doação de Resíduos',
