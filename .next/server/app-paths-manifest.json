@@ -1,7 +1,4 @@
 {
-  "/favicon.ico/route": "app/favicon.ico/route.js",
   "/page": "app/page.js",
-  "/impacto-e-exemplos/page": "app/impacto-e-exemplos/page.js",
-  "/doadores/page": "app/doadores/page.js",
-  "/cadastro/ong/page": "app/cadastro/ong/page.js"
+  "/impacto-e-exemplos/page": "app/impacto-e-exemplos/page.js"
 }
