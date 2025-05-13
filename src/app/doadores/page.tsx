@@ -51,7 +51,7 @@ export default function DoadoresPage() {
                 <p className="text-sm text-neutral"><strong className="font-semibold">Última Atividade/Doação Registrada:</strong> {doador.ultimaDoacao}</p>
               </div>
               <Link href={`/cadastro/produtor`} className="btn-secondary w-full mt-6 text-center text-sm">
-                Saiba Mais / Contato (Mock)
+                Saiba Mais
               </Link>
             </div>
           ))}

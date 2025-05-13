@@ -6,31 +6,12 @@ import Link from 'next/link';
 const mockInstituicoes = [
   {
     id: 'ong1',
-    nomeOrganizacao: 'ONG Vida Verde',
-    responsavel: 'Maria Silva',
-    localizacao: 'Belo Horizonte, MG',
-    tipoNecessidade: 'Composto orgânico para horta comunitária',
+    nomeOrganizacao: 'Instituto Dom Pixote',
+    localizacao: 'Rio de Janeiro, RJ',
+    tipoNecessidade: 'Residuos orgânicos para criação de biofertilizantes e biogás',
     status: 'Aprovado',
     linkSite: '#'
-  },
-  {
-    id: 'ong2',
-    nomeOrganizacao: 'Instituto Bioconecta',
-    responsavel: 'João Pereira',
-    localizacao: 'Curitiba, PR',
-    tipoNecessidade: 'Biomassa para produção de biogás',
-    status: 'Aprovado',
-    linkSite: '#'
-  },
-  {
-    id: 'ong3',
-    nomeOrganizacao: 'Associação Terra Viva',
-    responsavel: 'Ana Costa',
-    localizacao: 'Salvador, BA',
-    tipoNecessidade: 'Resíduos para compostagem e adubo orgânico',
-    status: 'Aprovado',
-    linkSite: '#'
-  },
+  }
 ];
 
 export default function InstituicoesPage() {
@@ -49,12 +30,11 @@ export default function InstituicoesPage() {
             <div key={instituicao.id} className="card-custom text-neutral-dark hover:shadow-2xl transition-shadow flex flex-col justify-between">
               <div>
                 <h2 className="text-2xl font-semibold text-primary mb-3">{instituicao.nomeOrganizacao}</h2>
-                <p className="mb-2"><strong className="font-semibold">Responsável:</strong> {instituicao.responsavel}</p>
                 <p className="mb-2"><strong className="font-semibold">Localização:</strong> {instituicao.localizacao}</p>
                 <p className="mb-2"><strong className="font-semibold">Principal Necessidade:</strong> {instituicao.tipoNecessidade}</p>
               </div>
               <Link href={instituicao.linkSite} target="_blank" rel="noopener noreferrer" className="btn-secondary w-full mt-6 text-center text-sm">
-                Visitar Site / Contato (Mock)
+                Visitar Site
               </Link>
             </div>
           ))}

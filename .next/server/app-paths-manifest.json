@@ -1,4 +1,6 @@
 {
+  "/instituicoes/page": "app/instituicoes/page.js",
+  "/impacto-e-exemplos/page": "app/impacto-e-exemplos/page.js",
   "/page": "app/page.js",
-  "/impacto-e-exemplos/page": "app/impacto-e-exemplos/page.js"
+  "/doadores/page": "app/doadores/page.js"
 }
