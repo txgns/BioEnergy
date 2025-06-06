@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import ProdutorDetails from './produtor-details';
+import OngDetails from './ong-details';
 
 // Mock de dados de produtores e ONGs
 const mockProdutoresData = [
@@ -58,6 +60,10 @@ export default function AdminDashboardPage() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [produtores, setProdutores] = useState(mockProdutoresData);
   const [ongs, setOngs] = useState(mockOngsData);
+  const [selectedProdutor, setSelectedProdutor] = useState(null);
+  const [selectedOng, setSelectedOng] = useState(null);
+  const [showProdutorDetails, setShowProdutorDetails] = useState(false);
+  const [showOngDetails, setShowOngDetails] = useState(false);
 
   useEffect(() => {
     const loggedIn = localStorage.getItem('isAdminLoggedIn');
@@ -68,28 +74,64 @@ export default function AdminDashboardPage() {
     }
   }, []);
 
-  const handleApprove = (type: 'produtor' | 'ong', id: string) => {
+  const handleApprove = (type, id) => {
     if (type === 'produtor') {
       setProdutores(produtores.map(p => p.id === id ? { ...p, status: 'Aprovado' } : p));
     } else {
       setOngs(ongs.map(o => o.id === id ? { ...o, status: 'Aprovado' } : o));
     }
-    alert(`${type === 'produtor' ? 'Produtor' : 'ONG'} aprovado(a) com sucesso! (Mock)`);
+    alert(`${type === 'produtor' ? 'Produtor' : 'ONG'} aprovado(a) com sucesso!`);
   };
 
-  const handleReject = (type: 'produtor' | 'ong', id: string) => {
+  const handleReject = (type, id) => {
     if (type === 'produtor') {
       setProdutores(produtores.map(p => p.id === id ? { ...p, status: 'Rejeitado' } : p));
     } else {
       setOngs(ongs.map(o => o.id === id ? { ...o, status: 'Rejeitado' } : o));
     }
-    alert(`${type === 'produtor' ? 'Produtor' : 'ONG'} rejeitado(a) com sucesso! (Mock)`);
+    alert(`${type === 'produtor' ? 'Produtor' : 'ONG'} rejeitado(a) com sucesso!`);
   };
   
   const handleLogout = () => {
     localStorage.removeItem('isAdminLoggedIn');
     setIsAdmin(false);
     window.location.href = '/admin';
+  };
+
+  const handleEditProdutor = (produtor) => {
+    setSelectedProdutor(produtor);
+    setShowProdutorDetails(true);
+  };
+
+  const handleEditOng = (ong) => {
+    setSelectedOng(ong);
+    setShowOngDetails(true);
+  };
+
+  const handleSaveProdutor = (updatedProdutor) => {
+    setProdutores(produtores.map(p => p.id === updatedProdutor.id ? updatedProdutor : p));
+    setShowProdutorDetails(false);
+    alert('Produtor atualizado com sucesso!');
+  };
+
+  const handleSaveOng = (updatedOng) => {
+    setOngs(ongs.map(o => o.id === updatedOng.id ? updatedOng : o));
+    setShowOngDetails(false);
+    alert('ONG atualizada com sucesso!');
+  };
+
+  const handleDeleteProdutor = (id) => {
+    if (confirm('Tem certeza que deseja excluir este produtor?')) {
+      setProdutores(produtores.filter(p => p.id !== id));
+      alert('Produtor excluído com sucesso!');
+    }
+  };
+
+  const handleDeleteOng = (id) => {
+    if (confirm('Tem certeza que deseja excluir esta ONG?')) {
+      setOngs(ongs.filter(o => o.id !== id));
+      alert('ONG excluída com sucesso!');
+    }
   };
 
   if (!isAdmin) {
@@ -116,7 +158,7 @@ export default function AdminDashboardPage() {
       </div>
 
       <section className="mb-12">
-        <h2 className="text-3xl font-semibold text-secondary-dark mb-6">Cadastros de Produtores</h2>
+        <h2 className="text-3xl font-semibold text-secondary-dark mb-6">Gerenciamento de Produtores</h2>
         <div className="bg-neutral-lightest p-6 rounded-xl shadow-xl overflow-x-auto">
           {produtores.length > 0 ? (
             <table className="min-w-full divide-y divide-neutral-light">
@@ -143,11 +185,12 @@ export default function AdminDashboardPage() {
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                       {produtor.status === 'Pendente' && (
                         <>
-                          <button onClick={() => handleApprove('produtor', produtor.id)} className="text-primary hover:text-primary-dark mr-4 font-semibold">Aprovar</button>
-                          <button onClick={() => handleReject('produtor', produtor.id)} className="text-red-600 hover:text-red-800 font-semibold">Rejeitar</button>
+                          <button onClick={() => handleApprove('produtor', produtor.id)} className="text-green-600 hover:text-green-800 mr-2 font-semibold">Aprovar</button>
+                          <button onClick={() => handleReject('produtor', produtor.id)} className="text-red-600 hover:text-red-800 mr-2 font-semibold">Rejeitar</button>
                         </>
                       )}
-                      {produtor.status !== 'Pendente' && <span className="text-neutral">N/A</span>}
+                      <button onClick={() => handleEditProdutor(produtor)} className="text-blue-600 hover:text-blue-800 mr-2 font-semibold">Editar</button>
+                      <button onClick={() => handleDeleteProdutor(produtor.id)} className="text-red-600 hover:text-red-800 font-semibold">Excluir</button>
                     </td>
                   </tr>
                 ))}
@@ -160,7 +203,7 @@ export default function AdminDashboardPage() {
       </section>
 
       <section>
-        <h2 className="text-3xl font-semibold text-secondary-dark mb-6">Cadastros de ONGs/Instituições</h2>
+        <h2 className="text-3xl font-semibold text-secondary-dark mb-6">Gerenciamento de ONGs/Instituições</h2>
         <div className="bg-neutral-lightest p-6 rounded-xl shadow-xl overflow-x-auto">
           {ongs.length > 0 ? (
             <table className="min-w-full divide-y divide-neutral-light">
@@ -187,11 +230,12 @@ export default function AdminDashboardPage() {
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                       {ong.status === 'Pendente' && (
                         <>
-                          <button onClick={() => handleApprove('ong', ong.id)} className="text-primary hover:text-primary-dark mr-4 font-semibold">Aprovar</button>
-                          <button onClick={() => handleReject('ong', ong.id)} className="text-red-600 hover:text-red-800 font-semibold">Rejeitar</button>
+                          <button onClick={() => handleApprove('ong', ong.id)} className="text-green-600 hover:text-green-800 mr-2 font-semibold">Aprovar</button>
+                          <button onClick={() => handleReject('ong', ong.id)} className="text-red-600 hover:text-red-800 mr-2 font-semibold">Rejeitar</button>
                         </>
                       )}
-                       {ong.status !== 'Pendente' && <span className="text-neutral">N/A</span>}
+                      <button onClick={() => handleEditOng(ong)} className="text-blue-600 hover:text-blue-800 mr-2 font-semibold">Editar</button>
+                      <button onClick={() => handleDeleteOng(ong.id)} className="text-red-600 hover:text-red-800 font-semibold">Excluir</button>
                     </td>
                   </tr>
                 ))}
@@ -202,6 +246,22 @@ export default function AdminDashboardPage() {
           )}
         </div>
       </section>
+
+      {showProdutorDetails && selectedProdutor && (
+        <ProdutorDetails 
+          produtor={selectedProdutor} 
+          onClose={() => setShowProdutorDetails(false)} 
+          onSave={handleSaveProdutor} 
+        />
+      )}
+
+      {showOngDetails && selectedOng && (
+        <OngDetails 
+          ong={selectedOng} 
+          onClose={() => setShowOngDetails(false)} 
+          onSave={handleSaveOng} 
+        />
+      )}
     </div>
   );
 }
