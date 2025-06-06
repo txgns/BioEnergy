@@ -1,6 +1,5 @@
 # BioEnergy
 
-![BioEnergy Logo](public/img/logo-parceiro-placeholder.png)
 
 ## Sobre o Projeto
 
