@@ -139,7 +139,7 @@ BioEnergy/
 | Caio Souza | Gabriella Iglesias | Niani Palmonari | Lincon Amaro | Rafaella Andriotta |
 |:----------:|:------------------:|:---------------:|:------------:|:------------------:|
 | <img src="public/img/Caio.jpeg" width="100" height="100" style="border-radius:50%"> | <img src="public/img/Gabriella.jpg" width="100" height="100" style="border-radius:50%"> | <img src="public/img/Niani.jpg" width="100" height="100" style="border-radius:50%"> | <img src="public/img/Lincon.jpg" width="100" height="100" style="border-radius:50%"> | <img src="public/img/Rafa.png" width="100" height="100" style="border-radius:50%"> |
-| Desenvolvedor | Designer | Gerente de Projeto | Desenvolvedor | Analista de Dados |
+| Desenvolvedor | Gerente de Projetos | Gerente de Projetos | Desenvolvedor | Desenvolvedor |
 
 </div>
 
