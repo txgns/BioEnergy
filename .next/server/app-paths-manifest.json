@@ -1,6 +1,7 @@
 {
-  "/instituicoes/page": "app/instituicoes/page.js",
-  "/impacto-e-exemplos/page": "app/impacto-e-exemplos/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
   "/page": "app/page.js",
-  "/doadores/page": "app/doadores/page.js"
+  "/cadastro/produtor/page": "app/cadastro/produtor/page.js",
+  "/admin/dashboard/page": "app/admin/dashboard/page.js",
+  "/admin/page": "app/admin/page.js"
 }

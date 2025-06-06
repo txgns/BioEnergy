@@ -64,6 +64,7 @@ export default function AdminDashboardPage() {
   const [selectedOng, setSelectedOng] = useState(null);
   const [showProdutorDetails, setShowProdutorDetails] = useState(false);
   const [showOngDetails, setShowOngDetails] = useState(false);
+  const [activeTab, setActiveTab] = useState('produtores');
 
   useEffect(() => {
     const loggedIn = localStorage.getItem('isAdminLoggedIn');
@@ -146,9 +147,9 @@ export default function AdminDashboardPage() {
   }
 
   return (
-    <div className="container mx-auto py-12 px-4">
-      <div className="flex justify-between items-center mb-10">
-        <h1 className="text-4xl font-bold text-primary-dark">Painel Administrativo</h1>
+    <div className="container mx-auto py-8 md:py-12 px-4">
+      <div className="flex flex-col md:flex-row justify-between items-center mb-6 md:mb-10">
+        <h1 className="text-2xl md:text-4xl font-bold text-primary-dark mb-4 md:mb-0">Painel Administrativo</h1>
         <button 
             onClick={handleLogout} 
             className="bg-red-500 hover:bg-red-600 text-neutral-lightest font-bold py-2 px-4 rounded-lg transition-colors"
@@ -157,40 +158,61 @@ export default function AdminDashboardPage() {
         </button>
       </div>
 
-      <section className="mb-12">
-        <h2 className="text-3xl font-semibold text-secondary-dark mb-6">Gerenciamento de Produtores</h2>
-        <div className="bg-neutral-lightest p-6 rounded-xl shadow-xl overflow-x-auto">
+      {/* Tabs para mobile */}
+      <div className="md:hidden mb-6">
+        <div className="flex rounded-lg overflow-hidden border border-neutral-light">
+          <button 
+            className={`flex-1 py-2 px-4 text-center ${activeTab === 'produtores' ? 'bg-primary-light text-neutral-darkest' : 'bg-neutral-lighter text-neutral-dark'}`}
+            onClick={() => setActiveTab('produtores')}
+          >
+            Produtores
+          </button>
+          <button 
+            className={`flex-1 py-2 px-4 text-center ${activeTab === 'ongs' ? 'bg-primary-light text-neutral-darkest' : 'bg-neutral-lighter text-neutral-dark'}`}
+            onClick={() => setActiveTab('ongs')}
+          >
+            ONGs
+          </button>
+        </div>
+      </div>
+
+      {/* Seção de Produtores */}
+      <section className={`mb-12 ${activeTab === 'produtores' ? 'block' : 'hidden md:block'}`}>
+        <h2 className="text-2xl md:text-3xl font-semibold text-secondary-dark mb-4 md:mb-6">Gerenciamento de Produtores</h2>
+        <div className="bg-neutral-lightest p-4 md:p-6 rounded-xl shadow-xl overflow-x-auto">
           {produtores.length > 0 ? (
             <table className="min-w-full divide-y divide-neutral-light">
               <thead className="bg-neutral-lighter">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-dark uppercase tracking-wider">Nome</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-dark uppercase tracking-wider">Email</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-dark uppercase tracking-wider">Tipo de Resíduo</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-dark uppercase tracking-wider">Status</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-dark uppercase tracking-wider">Ações</th>
+                  <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs font-medium text-neutral-dark uppercase tracking-wider">Nome</th>
+                  <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs font-medium text-neutral-dark uppercase tracking-wider hidden md:table-cell">Email</th>
+                  <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs font-medium text-neutral-dark uppercase tracking-wider hidden md:table-cell">Tipo de Resíduo</th>
+                  <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs font-medium text-neutral-dark uppercase tracking-wider">Status</th>
+                  <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs font-medium text-neutral-dark uppercase tracking-wider">Ações</th>
                 </tr>
               </thead>
               <tbody className="bg-neutral-lightest divide-y divide-neutral-light">
                 {produtores.map((produtor) => (
                   <tr key={produtor.id}>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-neutral-darkest">{produtor.nome}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-dark">{produtor.email}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-dark">{produtor.tipoResiduo}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm">
-                      <span className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${produtor.status === 'Aprovado' ? 'bg-green-100 text-green-800' : produtor.status === 'Pendente' ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800'}`}>
+                    <td className="px-3 md:px-6 py-2 md:py-4 whitespace-nowrap text-sm font-medium text-neutral-darkest">{produtor.nome}</td>
+                    <td className="px-3 md:px-6 py-2 md:py-4 whitespace-nowrap text-sm text-neutral-dark hidden md:table-cell">{produtor.email}</td>
+                    <td className="px-3 md:px-6 py-2 md:py-4 whitespace-nowrap text-sm text-neutral-dark hidden md:table-cell">{produtor.tipoResiduo}</td>
+                    <td className="px-3 md:px-6 py-2 md:py-4 whitespace-nowrap text-sm">
+                      <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${produtor.status === 'Aprovado' ? 'bg-green-100 text-green-800' : produtor.status === 'Pendente' ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800'}`}>
                         {produtor.status}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                      {produtor.status === 'Pendente' && (
-                        <>
-                          <button onClick={() => handleApprove('produtor', produtor.id)} className="text-green-600 hover:text-green-800 mr-2 font-semibold">Aprovar</button>
-                          <button onClick={() => handleReject('produtor', produtor.id)} className="text-red-600 hover:text-red-800 mr-2 font-semibold">Rejeitar</button>
-                        </>
-                      )}
-                      <button onClick={() => handleEditProdutor(produtor)} className="text-blue-600 hover:text-blue-800 mr-2 font-semibold">Editar</button>
-                      <button onClick={() => handleDeleteProdutor(produtor.id)} className="text-red-600 hover:text-red-800 font-semibold">Excluir</button>
+                    <td className="px-3 md:px-6 py-2 md:py-4 whitespace-nowrap text-sm font-medium">
+                      <div className="flex flex-col md:flex-row space-y-1 md:space-y-0 md:space-x-2">
+                        {produtor.status === 'Pendente' && (
+                          <>
+                            <button onClick={() => handleApprove('produtor', produtor.id)} className="text-green-600 hover:text-green-800 font-semibold">Aprovar</button>
+                            <button onClick={() => handleReject('produtor', produtor.id)} className="text-red-600 hover:text-red-800 font-semibold">Rejeitar</button>
+                          </>
+                        )}
+                        <button onClick={() => handleEditProdutor(produtor)} className="text-blue-600 hover:text-blue-800 font-semibold">Editar</button>
+                        <button onClick={() => handleDeleteProdutor(produtor.id)} className="text-red-600 hover:text-red-800 font-semibold">Excluir</button>
+                      </div>
                     </td>
                   </tr>
                 ))}
@@ -202,40 +224,43 @@ export default function AdminDashboardPage() {
         </div>
       </section>
 
-      <section>
-        <h2 className="text-3xl font-semibold text-secondary-dark mb-6">Gerenciamento de ONGs/Instituições</h2>
-        <div className="bg-neutral-lightest p-6 rounded-xl shadow-xl overflow-x-auto">
+      {/* Seção de ONGs */}
+      <section className={`${activeTab === 'ongs' ? 'block' : 'hidden md:block'}`}>
+        <h2 className="text-2xl md:text-3xl font-semibold text-secondary-dark mb-4 md:mb-6">Gerenciamento de ONGs/Instituições</h2>
+        <div className="bg-neutral-lightest p-4 md:p-6 rounded-xl shadow-xl overflow-x-auto">
           {ongs.length > 0 ? (
             <table className="min-w-full divide-y divide-neutral-light">
               <thead className="bg-neutral-lighter">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-dark uppercase tracking-wider">Nome da Organização</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-dark uppercase tracking-wider">Responsável</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-dark uppercase tracking-wider">Email</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-dark uppercase tracking-wider">Status</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-dark uppercase tracking-wider">Ações</th>
+                  <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs font-medium text-neutral-dark uppercase tracking-wider">Nome</th>
+                  <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs font-medium text-neutral-dark uppercase tracking-wider hidden md:table-cell">Responsável</th>
+                  <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs font-medium text-neutral-dark uppercase tracking-wider hidden md:table-cell">Email</th>
+                  <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs font-medium text-neutral-dark uppercase tracking-wider">Status</th>
+                  <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs font-medium text-neutral-dark uppercase tracking-wider">Ações</th>
                 </tr>
               </thead>
               <tbody className="bg-neutral-lightest divide-y divide-neutral-light">
                 {ongs.map((ong) => (
                   <tr key={ong.id}>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-neutral-darkest">{ong.nomeOrganizacao}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-dark">{ong.responsavel}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-dark">{ong.email}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm">
-                      <span className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${ong.status === 'Aprovado' ? 'bg-green-100 text-green-800' : ong.status === 'Pendente' ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800'}`}>
+                    <td className="px-3 md:px-6 py-2 md:py-4 whitespace-nowrap text-sm font-medium text-neutral-darkest">{ong.nomeOrganizacao}</td>
+                    <td className="px-3 md:px-6 py-2 md:py-4 whitespace-nowrap text-sm text-neutral-dark hidden md:table-cell">{ong.responsavel}</td>
+                    <td className="px-3 md:px-6 py-2 md:py-4 whitespace-nowrap text-sm text-neutral-dark hidden md:table-cell">{ong.email}</td>
+                    <td className="px-3 md:px-6 py-2 md:py-4 whitespace-nowrap text-sm">
+                      <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${ong.status === 'Aprovado' ? 'bg-green-100 text-green-800' : ong.status === 'Pendente' ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800'}`}>
                         {ong.status}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                      {ong.status === 'Pendente' && (
-                        <>
-                          <button onClick={() => handleApprove('ong', ong.id)} className="text-green-600 hover:text-green-800 mr-2 font-semibold">Aprovar</button>
-                          <button onClick={() => handleReject('ong', ong.id)} className="text-red-600 hover:text-red-800 mr-2 font-semibold">Rejeitar</button>
-                        </>
-                      )}
-                      <button onClick={() => handleEditOng(ong)} className="text-blue-600 hover:text-blue-800 mr-2 font-semibold">Editar</button>
-                      <button onClick={() => handleDeleteOng(ong.id)} className="text-red-600 hover:text-red-800 font-semibold">Excluir</button>
+                    <td className="px-3 md:px-6 py-2 md:py-4 whitespace-nowrap text-sm font-medium">
+                      <div className="flex flex-col md:flex-row space-y-1 md:space-y-0 md:space-x-2">
+                        {ong.status === 'Pendente' && (
+                          <>
+                            <button onClick={() => handleApprove('ong', ong.id)} className="text-green-600 hover:text-green-800 font-semibold">Aprovar</button>
+                            <button onClick={() => handleReject('ong', ong.id)} className="text-red-600 hover:text-red-800 font-semibold">Rejeitar</button>
+                          </>
+                        )}
+                        <button onClick={() => handleEditOng(ong)} className="text-blue-600 hover:text-blue-800 font-semibold">Editar</button>
+                        <button onClick={() => handleDeleteOng(ong.id)} className="text-red-600 hover:text-red-800 font-semibold">Excluir</button>
+                      </div>
                     </td>
                   </tr>
                 ))}
